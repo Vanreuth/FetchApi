@@ -19,7 +19,7 @@ const loadUsersFromAPI = async () => {
 // -------------------------------
 // Create User
 // -------------------------------
-const createUser = () => {
+const createUser = async () => {
     const name = document.getElementById("nameInput").value.trim();
     const email = document.getElementById("emailInput").value.trim();
 
@@ -32,7 +32,6 @@ const createUser = () => {
         name,
         email
     };
-    
     users.push(newUser);
     saveLocalUsers(users);
     renderUsers();
@@ -41,7 +40,7 @@ const createUser = () => {
 // -------------------------------
 // Update User
 // -------------------------------
-const updateUser = (id) => {
+const updateUser = async (id) => {
     const newName = prompt("Enter new name:");
     const newEmail = prompt("Enter new email:");
 
@@ -60,7 +59,7 @@ const updateUser = (id) => {
 // -------------------------------
 // Delete User
 // -------------------------------
-const deleteUser = (id) => {
+const deleteUser = async (id) => {
     let users = getLocalUsers();
     users = users.filter(u => u.id !== id);
 
@@ -78,25 +77,55 @@ const renderUsers = () => {
     container.innerHTML = ""; // clear
 
     users.forEach(user => {
-        const div = document.createElement("div");
-        div.className = "user";
+        const tr = document.createElement("tr");
 
-        div.innerHTML = `
-            <strong>${user.name}</strong> (${user.email})
-            <button onclick="updateUser(${user.id})">Edit</button>
-            <button onclick="deleteUser(${user.id})">Delete</button>
+        tr.innerHTML = `
+            <td style="padding:8px; border-bottom:1px solid #ddd;">${user.name}</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">${user.email}</td>
+            <td style="padding:8px; border-bottom:1px solid #ddd;">
+                <button class="editBtn" data-id="${user.id}">Edit</button>
+                <button class="deleteBtn" data-id="${user.id}">Delete</button>
+            </td>
         `;
 
-        container.appendChild(div);
+        container.appendChild(tr);
+    });
+
+    // Attach event listeners for edit/delete buttons
+    container.querySelectorAll('.editBtn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            const id = Number(e.target.getAttribute('data-id'));
+            await nameexport.updateUser(id);
+        });
+    });
+    container.querySelectorAll('.deleteBtn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            const id = Number(e.target.getAttribute('data-id'));
+            await nameexport.deleteUser(id);
+        });
     });
 };
 
 // -------------------------------
 // Events
 // -------------------------------
-document.getElementById("addBtn").addEventListener("click", createUser);
+document.getElementById("addBtn").addEventListener("click", async () => {
+    await nameexport.createUser();
+});
 
 // -------------------------------
 // Start App
 // -------------------------------
-loadUsersFromAPI();
+const nameexport = {
+    getLocalUsers,
+    saveLocalUsers,
+    loadUsersFromAPI,
+    createUser,
+    updateUser,
+    deleteUser,
+    renderUsers
+};
+
+export { nameexport };
+
+nameexport.loadUsersFromAPI();

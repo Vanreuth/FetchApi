@@ -20,9 +20,22 @@
     <input id="emailInput" type="text" placeholder="Enter email" />
     <button id="addBtn">Add User</button>
 
-    <h3>User List</h3>
-    <div id="userList"></div>
 
-    <script src="app.js"></script>
+    <h3>User List</h3>
+    <table style="width:100%;border-collapse:collapse;">
+        <thead>
+            <tr>
+                <th style="text-align:left; padding:8px; border-bottom:1px solid #ddd;">Name</th>
+                <th style="text-align:left; padding:8px; border-bottom:1px solid #ddd;">Email</th>
+                <th style="text-align:left; padding:8px; border-bottom:1px solid #ddd;">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="userList"></tbody>
+    </table>
+
+    <script type="module">
+        import { nameexport } from './app.js';
+        nameexport.loadUsersFromAPI();
+    </script>
 </body>
 </html>
