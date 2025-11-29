@@ -6,32 +6,115 @@
     <title>CRUD App</title>
 
     <style>
-        body { font-family: Arial; padding: 20px; }
-        input { padding: 6px; margin-right: 10px; }
-        button { padding: 6px 15px; margin-right: 5px; }
-        .user { padding: 10px; border-bottom: 1px solid #ddd; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: #fff;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 32px 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        button {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        #addBtn {
+            background: #4CAF50;
+            color: #fff;
+        }
+        #addBtn:hover {
+            background: #388e3c;
+        }
+        .editBtn {
+            background: #2196F3;
+            color: #fff;
+        }
+        .editBtn:hover {
+            background: #1769aa;
+        }
+        .deleteBtn {
+            background: #f44336;
+            color: #fff;
+        }
+        .deleteBtn:hover {
+            background: #b71c1c;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 30px 0;
+        }
     </style>
 </head>
 <body>
 
-    <h2>CRUD Users with Fetch + LocalStorage</h2>
 
-    <input id="nameInput" type="text" placeholder="Enter name" />
-    <input id="emailInput" type="text" placeholder="Enter email" />
-    <button id="addBtn">Add User</button>
-
-
-    <h3>User List</h3>
-    <table style="width:100%;border-collapse:collapse;">
-        <thead>
-            <tr>
-                <th style="text-align:left; padding:8px; border-bottom:1px solid #ddd;">Name</th>
-                <th style="text-align:left; padding:8px; border-bottom:1px solid #ddd;">Email</th>
-                <th style="text-align:left; padding:8px; border-bottom:1px solid #ddd;">Actions</th>
-            </tr>
-        </thead>
-        <tbody id="userList"></tbody>
-    </table>
+    <div class="container">
+        <h2>CRUD Users with Fetch + LocalStorage</h2>
+        <div class="input-group">
+            <input id="nameInput" type="text" placeholder="Enter name" />
+            <input id="emailInput" type="text" placeholder="Enter email" />
+            <button id="addBtn">Add User</button>
+        </div>
+        <h3>User List</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="userList"></tbody>
+        </table>
+    </div>
 
     <script type="module">
         import { nameexport } from './app.js';
