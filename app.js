@@ -1,12 +1,8 @@
-// -------------------------------
-// Utility Functions
-// -------------------------------
+
 const getLocalUsers = () => JSON.parse(localStorage.getItem("users")) || [];
 const saveLocalUsers = (users) => localStorage.setItem("users", JSON.stringify(users));
 
-// -------------------------------
-// Load users from API (first time)
-// -------------------------------
+
 const loadUsersFromAPI = async () => {
     if (!localStorage.getItem("users")) {
         const res = await fetch("https://jsonplaceholder.typicode.com/users");
@@ -16,9 +12,6 @@ const loadUsersFromAPI = async () => {
     renderUsers();
 };
 
-// -------------------------------
-// Create User
-// -------------------------------
 const createUser = async () => {
     const name = document.getElementById("nameInput").value.trim();
     const email = document.getElementById("emailInput").value.trim();
@@ -37,9 +30,6 @@ const createUser = async () => {
     renderUsers();
 };
 
-// -------------------------------
-// Update User
-// -------------------------------
 const updateUser = async (id) => {
     const newName = prompt("Enter new name:");
     const newEmail = prompt("Enter new email:");
@@ -56,9 +46,7 @@ const updateUser = async (id) => {
     renderUsers();
 };
 
-// -------------------------------
-// Delete User
-// -------------------------------
+
 const deleteUser = async (id) => {
     let users = getLocalUsers();
     users = users.filter(u => u.id !== id);
@@ -67,9 +55,6 @@ const deleteUser = async (id) => {
     renderUsers();
 };
 
-// -------------------------------
-// Render UI
-// -------------------------------
 const renderUsers = () => {
     const container = document.getElementById("userList");
     const users = getLocalUsers();
@@ -106,16 +91,10 @@ const renderUsers = () => {
     });
 };
 
-// -------------------------------
-// Events
-// -------------------------------
 document.getElementById("addBtn").addEventListener("click", async () => {
     await nameexport.createUser();
 });
 
-// -------------------------------
-// Start App
-// -------------------------------
 const nameexport = {
     getLocalUsers,
     saveLocalUsers,
